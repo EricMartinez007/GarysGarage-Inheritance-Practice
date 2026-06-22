@@ -1,22 +1,52 @@
 ﻿using Garage;
 
-Ram truck = new Ram() { MainColor = "blue", MaximumOccupancy = 5, Year = 2021, FuelCapacity = 26.0 };
-Tesla modelS = new Tesla() { MainColor = "red", MaximumOccupancy = 5, Year = 2023, BatteryKWh = 100.0 };
-Cessna mx410 = new Cessna() { MainColor = "white", MaximumOccupancy = 4, Year = 2019, FuelCapacity = 56.0 };
 Zero fxs = new Zero() { MainColor = "black", MaximumOccupancy = 1, Year = 2022, BatteryKWh = 14.4 };
+Zero fx = new Zero() { MainColor = "green", MaximumOccupancy = 1, Year = 2024, BatteryKWh = 18.5 };
+Tesla modelS = new Tesla() { MainColor = "red", MaximumOccupancy = 5, Year = 2023, BatteryKWh = 100.0 };
 
-truck.Drive();
-truck.Turn("left");
-truck.Stop();
+List<IElectricVehicle> electricVehicles = new List<IElectricVehicle>() {
+    fx, fxs, modelS
+};
 
-modelS.Drive();
-modelS.Turn("right");
-modelS.Stop();
+Console.WriteLine("Electric Vehicles");
+foreach(IElectricVehicle ev in electricVehicles)
+{
+    Console.WriteLine($"{ev.CurrentChargePercentage}");
+}
 
-mx410.Drive();
-mx410.Turn("left");
-mx410.Stop();
+foreach(IElectricVehicle ev in electricVehicles)
+{
+    // This should charge the vehicle to 100%
+    ev.ChargeBattery();
+}
 
-fxs.Drive();
-fxs.Turn("right");
-fxs.Stop();
+foreach(IElectricVehicle ev in electricVehicles)
+{
+    Console.WriteLine($"{ev.CurrentChargePercentage}");
+}
+
+/***********************************************/
+
+Ram truck = new Ram() { MainColor = "blue", MaximumOccupancy = 5, Year = 2021, FuelCapacity = 26.0 };
+Cessna mx410 = new Cessna() { MainColor = "white", MaximumOccupancy = 4, Year = 2019, FuelCapacity = 56.0 };
+
+List<IGasVehicle> gasVehicles = new List<IGasVehicle>() {
+    truck, mx410
+};
+
+Console.WriteLine("Gas Vehicles");
+foreach(IGasVehicle gv in gasVehicles)
+{
+    Console.WriteLine($"{gv.CurrentTankPercentage}");
+}
+
+foreach(IGasVehicle gv in gasVehicles)
+{
+    // This should completely refuel the gas tank
+    gv.RefuelTank();
+}
+
+foreach(IGasVehicle gv in gasVehicles)
+{
+    Console.WriteLine($"{gv.CurrentTankPercentage}");
+}
