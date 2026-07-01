@@ -50,3 +50,15 @@ foreach(IGasVehicle gv in gasVehicles)
 {
     Console.WriteLine($"{gv.CurrentTankPercentage}");
 }
+
+/***********************************************/
+
+Console.WriteLine("Refueling Stations");
+
+BatteryStation batteryStation = new BatteryStation() { Capacity = 4 };
+GasStation gasStation = new GasStation() { Capacity = 2 };
+
+// Each station only accepts the list type it was built for. Try passing
+// gasVehicles to batteryStation.Refuel() and the compiler will reject it.
+batteryStation.Refuel(electricVehicles);
+gasStation.Refuel(gasVehicles);
